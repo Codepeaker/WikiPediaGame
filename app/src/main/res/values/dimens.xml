@@ -209,4 +209,5 @@
     <dimen name="size_141">141dp</dimen>
     <dimen name="size_136">136dp</dimen>
     <dimen name="size_355">355dp</dimen>
+    <dimen name="textsize_60">60sp</dimen>
 </resources>

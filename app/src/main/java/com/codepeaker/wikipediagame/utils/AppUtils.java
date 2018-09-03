@@ -2,18 +2,13 @@ package com.codepeaker.wikipediagame.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ClickableSpan;
-import android.view.View;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.codepeaker.wikipediagame.R;
 
 import java.text.BreakIterator;
 import java.util.Locale;
-import java.util.Random;
 
 public class AppUtils {
 
@@ -23,7 +18,7 @@ public class AppUtils {
 
     public static void hidePDialog() {
         if (pDialog != null && pDialog.isShowing()) {
-            pDialog.hide();
+            pDialog.dismiss();
         }
     }
 
@@ -32,10 +27,10 @@ public class AppUtils {
             pDialog = new ProgressDialog(context);
             pDialog.setProgressDrawable(context.getResources().getDrawable(R.color.colorPrimaryDark));
             pDialog.setMessage(context.getString(R.string.please_wait));
-            pDialog.setCancelable(false);
-            if (!pDialog.isShowing()) {
-//                pDialog.show();
-            }
+            pDialog.setCancelable(true);
+        }
+        if (!pDialog.isShowing()) {
+            pDialog.show();
         }
     }
 
@@ -43,43 +38,34 @@ public class AppUtils {
         Toast.makeText(context, context.getString(R.string.please_try_again_later), Toast.LENGTH_SHORT).show();
     }
 
-    public static String[] getSentenceArray(String value) {
+    public static StringBuilder[] getSentenceArray(String value) {
         BreakIterator iterator = BreakIterator.getSentenceInstance(Locale.US);
         iterator.setText(value);
         int start = iterator.first();
-        String[] stringArray = new String[10];
+        StringBuilder[] stringBuilders = new StringBuilder[10];
+        stringBuilders = initStringBuilder(stringBuilders);
         int i = 0;
         for (int end = iterator.next();
              end != BreakIterator.DONE;
              start = end, end = iterator.next()) {
-            if (i == 10) {
+            if (i == 10 || TextUtils.isEmpty(value.substring(start, end))) {
                 break;
             }
-            stringArray[i++] = value.substring(start, end);
+            stringBuilders[i++].append(value, start, end);
         }
 
-        return stringArray;
+        return stringBuilders;
 
     }
 
-    public static int getRandomNumber(int start, int end) {
-        Random rn = new Random();
-        return  start + rn.nextInt(start - end + 1);
+    private static StringBuilder[] initStringBuilder(StringBuilder[] stringBuilders) {
+        for (int i = 0; i < stringBuilders.length; i++) {
+            stringBuilders[i] = new StringBuilder("");
+        }
+        return stringBuilders;
     }
 
-    public static SpannableStringBuilder makeClickableSpan(final Context context, String s, final int i) {
-        SpannableStringBuilder stringBuilder = new SpannableStringBuilder(s);
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View textView) {
+    public static final String DASH_STRING = "______";
 
-                Toast.makeText(context, i+"", Toast.LENGTH_SHORT).show();
-            }
 
-        };
-
-        stringBuilder.setSpan(clickableSpan, 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        return stringBuilder;
-    }
 }

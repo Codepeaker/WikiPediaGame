@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">WIkiPediaGame</string>
     <string name="action_settings">Settings</string>
-    <string name="please_try_again_later" >Please try again later</string>
+    <string name="please_try_again_later">Please try again later</string>
     <string name="please_wait">Please Wait</string>
+    <string name="choose_the_right_word">Choose the Right word</string>
+    <string name="submit">Submit</string>
+    <string name="your_score">Your Score</string>
+    <string name="no_attempts">Not Attempted</string>
+    <string name="you_chosen">You chosen: </string>
+    <string name="correct_is">Correct is:</string>
+    <string name="following_are_the_details">Following are the details</string>
+    <string name="refresh">Refresh</string>
 </resources>

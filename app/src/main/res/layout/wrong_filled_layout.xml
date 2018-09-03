@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/size_5"
+    android:padding="@dimen/size_10">
+
+    <TextView
+        android:id="@+id/sentence_tv"
+        android:layout_width="@dimen/size_0"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textsize_16"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="______ Origin and history ==The Senate convened, beginning in 1790, in a second-floor  " />
+
+
+    <TextView
+        android:id="@+id/you_chosen_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_10"
+        android:text="@string/you_chosen"
+        app:layout_constraintTop_toBottomOf="@id/sentence_tv" />
+
+    <TextView
+
+        android:id="@+id/wrong_text_tv"
+        android:layout_width="@dimen/size_0"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_light"
+        android:layout_marginTop="@dimen/size_10"
+        app:layout_constraintStart_toEndOf="@id/you_chosen_tv"
+        app:layout_constraintTop_toBottomOf="@id/sentence_tv"
+        tools:text=" utilized" />
+
+    <TextView
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:id="@+id/right_is_tv"
+        android:layout_height="wrap_content"
+        android:text="@string/correct_is"
+        app:layout_constraintTop_toBottomOf="@id/wrong_text_tv"
+        android:layout_marginTop="@dimen/size_5"
+        />
+
+    <TextView
+        android:id="@+id/right_text_tv"
+        android:layout_width="@dimen/size_0"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/size_5"
+        app:layout_constraintStart_toEndOf="@id/right_is_tv"
+        android:textColor="@android:color/holo_blue_light"
+        app:layout_constraintTop_toBottomOf="@id/you_chosen_tv"
+        tools:text=" utilizing" />
+
+</android.support.constraint.ConstraintLayout>
