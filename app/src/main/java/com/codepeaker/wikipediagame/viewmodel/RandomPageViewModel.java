@@ -15,10 +15,9 @@ public class RandomPageViewModel extends AndroidViewModel {
 
     public RandomPageViewModel(@NonNull Application application) {
         super(application);
-
     }
 
-    public void getRandomPage(){
+    public void getRandomPage() {
         pageLiveData = RandomPageRepository.getInstance().getRandomPage();
     }
 

@@ -13,14 +13,13 @@ import retrofit2.Response;
 public class RandomPageRepository {
 
     private static RandomPageRepository randomPageRepository;
+    private final MutableLiveData<ApiResponse> pageMutableLiveData = new MutableLiveData<>();
 
     public LiveData<ApiResponse> getRandomPage() {
 
         Call<ApiResponse> call = RestClient.getRestInterface().getRandomPage(
                 "query", "extracts", true, 1
                 , "random", 0, "json");
-
-        final MutableLiveData<ApiResponse> pageMutableLiveData = new MutableLiveData<>();
 
         call.enqueue(new Callback<ApiResponse>() {
             @Override

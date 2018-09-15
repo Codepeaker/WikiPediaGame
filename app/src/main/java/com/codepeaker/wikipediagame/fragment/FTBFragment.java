@@ -29,17 +29,12 @@ import com.codepeaker.wikipediagame.databinding.FragmentFtbBinding;
 import com.codepeaker.wikipediagame.model.ApiResponse;
 import com.codepeaker.wikipediagame.model.BundleConverter;
 import com.codepeaker.wikipediagame.model.Page;
-import com.codepeaker.wikipediagame.rest.RestClient;
 import com.codepeaker.wikipediagame.utils.AppUtils;
 import com.codepeaker.wikipediagame.utils.StringUtils;
 import com.codepeaker.wikipediagame.viewmodel.RandomPageViewModel;
 
 import java.util.Map;
 import java.util.Random;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.codepeaker.wikipediagame.utils.AppUtils.DASH_STRING;
 
@@ -81,12 +76,13 @@ public class FTBFragment extends Fragment {
         return binding.getRoot();
     }
 
+    RandomPageViewModel mViewModel;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState == null) {
-            RandomPageViewModel mViewModel = ViewModelProviders.of(this).get(RandomPageViewModel.class);
+            mViewModel = ViewModelProviders.of(this).get(RandomPageViewModel.class);
 
             mViewModel.getRandomPage();
 
@@ -274,7 +270,8 @@ public class FTBFragment extends Fragment {
             wordsReplaceArray.put(i, randomString);
             wordsReplaceIndex.put(i, stringBuilder[i].indexOf(randomString));
             stringBuilder[i].replace(stringBuilder[i].indexOf(randomString)
-                    , stringBuilder[i].indexOf(randomString) + randomString.length(), DASH_STRING);
+                    , stringBuilder[i].indexOf(randomString) + randomString.length()
+                    , DASH_STRING);
         }
 
 
@@ -292,31 +289,9 @@ public class FTBFragment extends Fragment {
 
     public void getRandomPage() {
 
-        reInitializeData();
-
-        Call<ApiResponse> call = RestClient.getRestInterface().getRandomPage(
-                "query", "extracts", true, 1
-                , "random", 0, "json");
-
-
         AppUtils.showPleaseWaitDialog(getActivity());
-        call.enqueue(new Callback<ApiResponse>() {
-            @Override
-            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-                Map<String, Page> pageMap = response.body().getQuery().getPageMap();
-                for (Page page : pageMap.values()) {
-                    setUpScreen(page);
-                    break;
-                }
-                AppUtils.hidePDialog();
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse> call, Throwable t) {
-                AppUtils.hidePDialog();
-                AppUtils.ptalToast(getActivity());
-            }
-        });
+        reInitializeData();
+        mViewModel.getRandomPage();
 
     }
 
